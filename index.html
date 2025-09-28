@@ -701,6 +701,47 @@
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
         }
 
+        /* Gradient text highlighting */
+        .highlight-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            animation: gradientShift 3s ease-in-out infinite;
+            display: inline;
+            position: relative;
+        }
+
+        .highlight-word {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            display: inline;
+            vertical-align: baseline;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Add subtle glow effect on hover */
+        .highlight-gradient:hover {
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            transition: text-shadow 0.3s ease;
+        }
+
         /* Responsive for new sections */
         @media (min-width: 1024px) {
             .telegram-content {
@@ -822,11 +863,11 @@
             <div class="hero-content">
                 <!-- Text Content -->
                 <div class="hero-text animate-fade-in">
-                    <h1 class="hero-title">Знакомься — это Софи AI</h1>
+                    <h1 class="hero-title">Знакомься&nbsp;— это&nbsp;Софи AI</h1>
                     <p class="hero-description">
-                        Привет, я Софи. Понимаю речь, превращаю в текст, помогаю в чатах, веду задачи и напоминаю о
-                        важном.
-                        Твоя умная голосовая помощница для повышения продуктивности.
+                        Привет, я&nbsp;Софи. Понимаю речь, превращаю в&nbsp;текст, помогаю в&nbsp;чатах, веду задачи
+                        и&nbsp;напоминаю о&nbsp;важном.
+                        Твоя умная помощница для повышения продуктивности.
                     </p>
 
                 </div>
@@ -853,15 +894,17 @@
             <div class="voice-content">
                 <!-- Text Content -->
                 <div class="voice-text animate-fade-in">
-                    <h2 class="voice-title">Скажи мне, не печатай</h2>
+                    <h2 class="voice-title">Скажи мне, не&nbsp;печатай</h2>
                     <p class="voice-stats">
-                        Печатать — 30–50 слов в минуту. Говорить — 150 слов в минуту. В 3–5 раз быстрее, естественнее и
-                        точнее.
+                        Средняя скорость печати&nbsp;— 30-50 слов в&nbsp;минуту. Скорость речи&nbsp;— 150+ слов
+                        в&nbsp;минуту.
+                        <span class="highlight-gradient">Это в&nbsp;3-5 раз быстрее, естественнее и&nbsp;точнее.</span>
                     </p>
                     <p class="voice-description">
-                        Когда ты говоришь, а не печатаешь, ты не сжимаешь мысль в символы — ты отдаёшь её целиком: с
-                        уточнениями, эмоциями и контекстом. Я слышу не только результат, но и путь к нему. И помогаю
-                        точнее, ближе к цели.
+                        Когда ты говоришь, а&nbsp;не&nbsp;печатаешь, ты не&nbsp;сжимаешь мысль
+                        в&nbsp;символы&nbsp;—&nbsp;ты отдаёшь её целиком: с&nbsp;уточнениями, эмоциями
+                        и&nbsp;контекстом. Я слышу не&nbsp;только результат, но&nbsp;и&nbsp;путь к&nbsp;нему.
+                        <span class="highlight-gradient">И&nbsp;помогу точнее, ближе к&nbsp;цели.</span>
                     </p>
                 </div>
 
@@ -890,7 +933,12 @@
                 <div class="telegram-text animate-fade-in">
                     <h2 class="telegram-title">Добавь меня в Telegram</h2>
                     <p class="telegram-description">
-                        Говорить легко, а слушать мучительно. Подключи меня к своим личным и групповым чатам в Telegram и я превращу все войсы в чистый текст с абзацами и естественной разметкой и эмоджи. Его легко читать, удобно искать по словам. Так можно перестать печатать и говорить с друзьями, коллегами и близкими — а всё будет выглядеть красиво, опрятно и живо.
+                        Говорить легко, а слушать мучительно. Подключи меня к своим личным и групповым чатам в Telegram
+                        и&nbsp;<span class="highlight-word">я</span>&nbsp;<span class="highlight-gradient">превращу все
+                            войсы в
+                            чистый текст с абзацами и естественной разметкой и эмоджи</span>. Его легко
+                        читать, удобно искать по словам. Так можно перестать печатать и говорить с друзьями, коллегами и
+                        близкими — а всё будет выглядеть красиво, опрятно и живо.
                     </p>
                 </div>
             </div>
@@ -909,7 +957,8 @@
                         часов печати.
                     </p>
                     <p class="time-description">
-                        Голосом то же самое занимает в 3–5 раз меньше времени. Экономия — часы каждый день. Их можно
+                        Голосом то же самое занимает в 3–5 раз меньше времени. <span class="highlight-gradient">Экономия
+                            — 2+ часа каждый день.</span> Их можно
                         вложить в идеи, дела, жизнь.
                     </p>
                 </div>
