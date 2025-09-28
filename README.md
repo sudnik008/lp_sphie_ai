@@ -31,8 +31,13 @@
 ├── index.html          # Главная страница
 ├── sofia-photo.jpg     # Фотография Софи
 ├── sofia-logo.svg      # Логотип/иконка
-└── README.md          # Этот файл
+├── README.md          # Этот файл
+└── DEVELOPMENT.md     # Документация разработки
 ```
+
+## 👩‍💻 Для разработчиков
+
+Подробная документация по разработке, workflow и командам находится в [DEVELOPMENT.md](./DEVELOPMENT.md)
 
 ---
 
