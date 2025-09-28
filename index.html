@@ -27,7 +27,6 @@
             padding: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
         }
 
         /* Design System Colors */
@@ -55,7 +54,6 @@
             display: flex;
             align-items: center;
             padding: 2rem 0;
-            scroll-snap-align: start;
             position: relative;
         }
 
@@ -119,29 +117,6 @@
 
 
         /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
 
         @keyframes float {
 
@@ -155,16 +130,21 @@
             }
         }
 
-        .animate-fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .animate-scale-in {
-            animation: scaleIn 0.6s ease-out;
-        }
 
         .animate-float {
             animation: float 3s ease-in-out infinite;
+        }
+
+        /* Slide-up animation for images */
+        .slide-up {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive Design */
@@ -292,13 +272,12 @@
 
         /* Second Section Styles */
         .voice-section {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: #FFFFFF;
             height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
         }
 
         .voice-content {
@@ -470,39 +449,6 @@
             }
         }
 
-        /* Slide Indicators */
-        .slide-indicators {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .slide-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .slide-indicator.active {
-            background: #6366f1;
-            border-color: #6366f1;
-            transform: scale(1.2);
-        }
-
-        .slide-indicator:hover {
-            background: rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
-        }
 
         /* Scroll Hint */
         .scroll-hint {
@@ -547,10 +493,6 @@
         }
 
         @media (max-width: 768px) {
-            .slide-indicators {
-                right: 1rem;
-            }
-
             .scroll-hint {
                 bottom: 1rem;
             }
@@ -564,7 +506,6 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
             color: #1f2937;
         }
 
@@ -635,7 +576,6 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
             color: #1f2937;
         }
 
@@ -700,13 +640,12 @@
 
         /* Fifth Section - Time Saving */
         .time-section {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            background: #FFFFFF;
             height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
-            scroll-snap-align: start;
             color: #1f2937;
         }
 
@@ -980,7 +919,7 @@
         <div class="container">
             <div class="hero-content">
                 <!-- Text Content -->
-                <div class="hero-text animate-fade-in">
+                <div class="hero-text">
                     <h1 class="hero-title">Знакомься&nbsp;— это&nbsp;Софи AI</h1>
                     <p class="hero-description">
                         Привет, я&nbsp;Софи. Понимаю речь, превращаю в&nbsp;текст, помогаю в&nbsp;чатах, веду задачи
@@ -991,7 +930,7 @@
                 </div>
 
                 <!-- Sofia Photo -->
-                <div class="hero-image animate-scale-in">
+                <div class="hero-image slide-up">
                     <div class="sofia-photo animate-float">
                         <img src="sofia-photo.jpg" alt="Софи - AI ассистент" class="sofia-img">
                     </div>
@@ -1011,8 +950,8 @@
         <div class="container">
             <div class="voice-content">
                 <!-- Text Content -->
-                <div class="voice-text animate-fade-in">
-                    <h2 class="voice-title">Скажи мне, не&nbsp;печатай</h2>
+                <div class="voice-text">
+                    <h2 class="voice-title">Голос — лучшая клавиатура</h2>
                     <p class="voice-stats">
                         Средняя скорость печати&nbsp;— 30-50 слов в&nbsp;минуту. Скорость речи&nbsp;— 150+ слов
                         в&nbsp;минуту.
@@ -1027,7 +966,7 @@
                 </div>
 
                 <!-- Logo Visual -->
-                <div class="voice-visual animate-scale-in">
+                <div class="voice-visual slide-up">
                     <div class="logo-container">
                         <img src="sofia-logo.svg" alt="Софи AI логотип" />
                     </div>
@@ -1041,14 +980,14 @@
         <div class="container">
             <div class="telegram-content">
                 <!-- Logo Visual -->
-                <div class="telegram-visual animate-scale-in">
+                <div class="telegram-visual slide-up">
                     <div class="telegram-logo-container">
                         <img src="sofia-logo.svg" alt="Софи AI логотип" />
                     </div>
                 </div>
 
                 <!-- Text Content -->
-                <div class="telegram-text animate-fade-in">
+                <div class="telegram-text">
                     <h2 class="telegram-title">Добавь меня в Telegram</h2>
                     <p class="telegram-description">
                         Говорить легко, но&nbsp;слушать войсы мучительно. Подключи меня к&nbsp;своим личным
@@ -1068,14 +1007,14 @@
         <div class="container">
             <div class="meetings-content">
                 <!-- Logo Visual -->
-                <div class="meetings-visual animate-scale-in">
+                <div class="meetings-visual slide-up">
                     <div class="meetings-logo-container">
                         <img src="sofia-logo.svg" alt="Софи AI логотип" />
                     </div>
                 </div>
 
                 <!-- Text Content -->
-                <div class="meetings-text animate-fade-in">
+                <div class="meetings-text">
                     <h2 class="meetings-title">Протоколы встреч: кто сказал и что решили</h2>
                     <p class="meetings-description">
                         Длинные встречи, интервью или сессии? Просто пришли мне аудио. Я превращу его в ясную
@@ -1095,7 +1034,7 @@
         <div class="container">
             <div class="time-content">
                 <!-- Text Content -->
-                <div class="time-text animate-fade-in">
+                <div class="time-text">
                     <h2 class="time-title">Время возвращается тебе</h2>
                     <p class="time-stats">
                         В&nbsp;среднем человек пишет около 100 сообщений в&nbsp;день. На&nbsp;каждое&nbsp;— 2–3 минуты
@@ -1110,7 +1049,7 @@
                 </div>
 
                 <!-- Logo Visual -->
-                <div class="time-visual animate-scale-in">
+                <div class="time-visual slide-up">
                     <div class="time-logo-container">
                         <img src="sofia-logo.svg" alt="Софи AI логотип" />
                     </div>
@@ -1119,65 +1058,12 @@
         </div>
     </section>
 
-    <!-- Slide Indicators -->
-    <div class="slide-indicators">
-        <div class="slide-indicator active" data-slide="0"></div>
-        <div class="slide-indicator" data-slide="1"></div>
-        <div class="slide-indicator" data-slide="2"></div>
-        <div class="slide-indicator" data-slide="3"></div>
-        <div class="slide-indicator" data-slide="4"></div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Slide functionality
-            const slides = [
-                document.querySelector('.hero'),
-                document.querySelector('.voice-section'),
-                document.querySelector('.telegram-section'),
-                document.querySelector('.meetings-section'),
-                document.querySelector('.time-section')
-            ];
-            const indicators = document.querySelectorAll('.slide-indicator');
+            // Hide scroll hint after any interaction
             const scrollHint = document.querySelector('.scroll-hint');
-
-            let currentSlide = 0;
-            let isScrolling = false;
-            let touchStartY = 0;
             let hasInteracted = false;
-
-            // Initial animation
-            const animatedElements = document.querySelectorAll('.animate-fade-in, .animate-scale-in');
-            animatedElements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.2}s`;
-            });
-
-            // Navigation functions
-            function goToSlide(slideIndex) {
-                if (slideIndex < 0 || slideIndex >= slides.length || isScrolling) return;
-
-                isScrolling = true;
-                currentSlide = slideIndex;
-
-                slides[slideIndex].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-
-                updateIndicators();
-                hideScrollHint();
-
-                setTimeout(() => {
-                    isScrolling = false;
-                    triggerSlideAnimations(slideIndex);
-                }, 800);
-            }
-
-            function updateIndicators() {
-                indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === currentSlide);
-                });
-            }
 
             function hideScrollHint() {
                 if (!hasInteracted && scrollHint) {
@@ -1189,155 +1075,30 @@
                 }
             }
 
-            function triggerSlideAnimations(slideIndex) {
-                if (slideIndex === 1) { // Voice section
-                    const voiceElements = slides[1].querySelectorAll('.animate-fade-in, .animate-scale-in');
-                    voiceElements.forEach((el, index) => {
-                        el.style.animationDelay = `${index * 0.3}s`;
-                        el.style.opacity = '1';
-                    });
-                } else if (slideIndex === 2) { // Telegram section
-                    const telegramElements = slides[2].querySelectorAll('.animate-fade-in, .animate-scale-in');
-                    telegramElements.forEach((el, index) => {
-                        el.style.animationDelay = `${index * 0.3}s`;
-                        el.style.opacity = '1';
-                    });
-                } else if (slideIndex === 3) { // Meetings section
-                    const meetingsElements = slides[3].querySelectorAll('.animate-fade-in, .animate-scale-in');
-                    meetingsElements.forEach((el, index) => {
-                        el.style.animationDelay = `${index * 0.3}s`;
-                        el.style.opacity = '1';
-                    });
-                } else if (slideIndex === 4) { // Time section
-                    const timeElements = slides[4].querySelectorAll('.animate-fade-in, .animate-scale-in');
-                    timeElements.forEach((el, index) => {
-                        el.style.animationDelay = `${index * 0.3}s`;
-                        el.style.opacity = '1';
-                    });
-                }
-            }
+            // Hide scroll hint on any scroll or interaction
+            window.addEventListener('scroll', hideScrollHint, { once: true });
+            window.addEventListener('wheel', hideScrollHint, { once: true });
+            window.addEventListener('touchstart', hideScrollHint, { once: true });
 
-            // Mouse wheel navigation with better debouncing
-            let wheelTimeout;
-            let lastWheelTime = 0;
-            let isWheelNavigating = false;
-
-            window.addEventListener('wheel', function (e) {
-                if (isScrolling || isWheelNavigating) return;
-
-                const now = Date.now();
-                const timeSinceLastWheel = now - lastWheelTime;
-
-                // Ignore rapid wheel events (less than 100ms apart)
-                if (timeSinceLastWheel < 100) return;
-
-                // Only trigger on significant scroll (threshold)
-                if (Math.abs(e.deltaY) < 30) return;
-
-                clearTimeout(wheelTimeout);
-                isWheelNavigating = true;
-
-                wheelTimeout = setTimeout(() => {
-                    if (e.deltaY > 0 && currentSlide < slides.length - 1) {
-                        goToSlide(currentSlide + 1);
-                    } else if (e.deltaY < 0 && currentSlide > 0) {
-                        goToSlide(currentSlide - 1);
-                    }
-
-                    lastWheelTime = now;
-
-                    // Reset wheel navigation flag after slide transition
-                    setTimeout(() => {
-                        isWheelNavigating = false;
-                    }, 1000); // Wait for slide transition to complete
-
-                }, 150); // Increased debounce time
-            }, { passive: true });
-
-            // Touch navigation with better control
-            let isTouchNavigating = false;
-            let lastTouchTime = 0;
-
-            window.addEventListener('touchstart', function (e) {
-                touchStartY = e.touches[0].clientY;
-            }, { passive: true });
-
-            window.addEventListener('touchend', function (e) {
-                if (isScrolling || isTouchNavigating) return;
-
-                const now = Date.now();
-                const timeSinceLastTouch = now - lastTouchTime;
-
-                // Ignore rapid touch events (less than 300ms apart)
-                if (timeSinceLastTouch < 300) return;
-
-                const touchEndY = e.changedTouches[0].clientY;
-                const deltaY = touchStartY - touchEndY;
-
-                // Increased minimum swipe distance for more intentional gestures
-                if (Math.abs(deltaY) > 80) {
-                    isTouchNavigating = true;
-                    lastTouchTime = now;
-
-                    if (deltaY > 0 && currentSlide < slides.length - 1) {
-                        goToSlide(currentSlide + 1);
-                    } else if (deltaY < 0 && currentSlide > 0) {
-                        goToSlide(currentSlide - 1);
-                    }
-
-                    // Reset touch navigation flag
-                    setTimeout(() => {
-                        isTouchNavigating = false;
-                    }, 1000);
-                }
-            }, { passive: true });
-
-            // Keyboard navigation
-            window.addEventListener('keydown', function (e) {
-                if (isScrolling) return;
-
-                switch (e.key) {
-                    case 'ArrowDown':
-                    case ' ':
-                        e.preventDefault();
-                        if (currentSlide < slides.length - 1) {
-                            goToSlide(currentSlide + 1);
-                        }
-                        break;
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        if (currentSlide > 0) {
-                            goToSlide(currentSlide - 1);
-                        }
-                        break;
-                }
-            });
-
-            // Indicator click navigation
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    goToSlide(index);
-                });
-            });
-
-            // Track scroll position for indicators
-            let scrollObserver = new IntersectionObserver((entries) => {
+            // Intersection Observer for slide-up animations
+            const slideUpObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-                        const slideIndex = slides.indexOf(entry.target);
-                        if (slideIndex !== -1 && slideIndex !== currentSlide) {
-                            currentSlide = slideIndex;
-                            updateIndicators();
-                        }
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: [0.5] });
-
-            slides.forEach(slide => {
-                scrollObserver.observe(slide);
+            }, {
+                threshold: 0.2, // Trigger when 20% of element is visible
+                rootMargin: '0px 0px -50px 0px' // Start animation slightly before element comes into view
             });
 
-            // Hover effects
+            // Observe all elements with slide-up class
+            const slideUpElements = document.querySelectorAll('.slide-up');
+            slideUpElements.forEach(element => {
+                slideUpObserver.observe(element);
+            });
+
+            // Hover effects for photos and logos
             const photo = document.querySelector('.sofia-photo');
             if (photo) {
                 photo.addEventListener('mouseenter', function () {
@@ -1365,17 +1126,6 @@
                 }
             });
         });
-
-        // Add CSS for pulse animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-                100% { transform: scale(1); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 
