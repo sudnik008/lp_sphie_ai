@@ -175,6 +175,7 @@
             .hero-content,
             .voice-content,
             .telegram-content,
+            .meetings-content,
             .time-content {
                 grid-template-columns: 1fr !important;
                 gap: 2.5rem;
@@ -184,6 +185,7 @@
             .hero-text,
             .voice-text,
             .telegram-text,
+            .meetings-text,
             .time-text {
                 order: 1 !important;
                 /* Text (title + description) first */
@@ -192,6 +194,7 @@
             .hero-image,
             .voice-visual,
             .telegram-visual,
+            .meetings-visual,
             .time-visual {
                 order: 2 !important;
                 /* Image always second */
@@ -200,6 +203,7 @@
             .hero-title,
             .voice-title,
             .telegram-title,
+            .meetings-title,
             .time-title {
                 font-size: 2.5rem;
             }
@@ -207,6 +211,7 @@
             .hero-description,
             .voice-description,
             .telegram-description,
+            .meetings-description,
             .time-description,
             .voice-stats,
             .time-stats {
@@ -622,7 +627,78 @@
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
         }
 
-        /* Fourth Section - Time Saving */
+        /* Fourth Section - Meetings */
+        .meetings-section {
+            background: #FFFFFF;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            scroll-snap-align: start;
+            color: #1f2937;
+        }
+
+        .meetings-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .meetings-text {
+            text-align: center;
+        }
+
+        .meetings-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #1f2937;
+            letter-spacing: -0.022em;
+            line-height: 1.1;
+        }
+
+        .meetings-description {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .meetings-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .meetings-logo-container {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+
+        .meetings-logo-container svg,
+        .meetings-logo-container img {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
+        }
+
+        /* Fifth Section - Time Saving */
         .time-section {
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             height: 100vh;
@@ -781,6 +857,43 @@
                 height: 150px;
             }
 
+            .meetings-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+
+            .meetings-text {
+                text-align: left;
+                order: 2;
+                /* Text on right */
+            }
+
+            .meetings-visual {
+                order: 1;
+                /* Logo on left */
+            }
+
+            .meetings-title {
+                font-size: 3rem;
+            }
+
+            .meetings-description {
+                font-size: 1.25rem;
+                margin: 0;
+                max-width: none;
+            }
+
+            .meetings-logo-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .meetings-logo-container svg,
+            .meetings-logo-container img {
+                width: 150px;
+                height: 150px;
+            }
+
             .time-content {
                 grid-template-columns: 1fr 1fr;
                 gap: 4rem;
@@ -826,6 +939,7 @@
         @media (max-width: 640px) {
 
             .telegram-title,
+            .meetings-title,
             .time-title {
                 font-size: 2rem;
                 margin-bottom: 1.5rem;
@@ -836,11 +950,13 @@
             }
 
             .telegram-description,
+            .meetings-description,
             .time-description {
                 font-size: 1rem;
             }
 
             .telegram-logo-container,
+            .meetings-logo-container,
             .time-logo-container {
                 width: 150px;
                 height: 150px;
@@ -848,6 +964,8 @@
 
             .telegram-logo-container svg,
             .telegram-logo-container img,
+            .meetings-logo-container svg,
+            .meetings-logo-container img,
             .time-logo-container svg,
             .time-logo-container img {
                 width: 90px;
@@ -934,9 +1052,36 @@
                     <h2 class="telegram-title">Добавь меня в Telegram</h2>
                     <p class="telegram-description">
                         Говорить легко, а слушать мучительно. Подключи меня к своим личным и групповым чатам в Telegram
-                        и&nbsp;<span class="highlight-gradient">превращу все войсы в чистый текст с абзацами, естественной разметкой и эмоджи</span>. Его легко
+                        и&nbsp;<span class="highlight-gradient">превращу все войсы в чистый текст с абзацами,
+                            естественной разметкой и эмоджи</span>. Его легко
                         читать, удобно искать по словам. Так можно перестать печатать и говорить с друзьями, коллегами и
                         близкими — а всё будет выглядеть красиво, опрятно и живо.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meetings Section -->
+    <section class="meetings-section">
+        <div class="container">
+            <div class="meetings-content">
+                <!-- Logo Visual -->
+                <div class="meetings-visual animate-scale-in">
+                    <div class="meetings-logo-container">
+                        <img src="sofia-logo.svg" alt="Софи AI логотип" />
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="meetings-text animate-fade-in">
+                    <h2 class="meetings-title">Протоколы встреч: кто сказал и что решили</h2>
+                    <p class="meetings-description">
+                        Длинные встречи, интервью или сессии? Просто пришли мне аудио. Я превращу его в ясную
+                        расшифровку:
+                        выделю каждого спикера, соберу чистый текст, подведу резюме и отмечу экшн‑поинты. <span
+                            class="highlight-gradient">В итоге
+                            у тебя на руках не час записи, а ясный протокол</span> — кто говорил и что делать дальше.
                     </p>
                 </div>
             </div>
@@ -977,6 +1122,7 @@
         <div class="slide-indicator" data-slide="1"></div>
         <div class="slide-indicator" data-slide="2"></div>
         <div class="slide-indicator" data-slide="3"></div>
+        <div class="slide-indicator" data-slide="4"></div>
     </div>
 
     <script>
@@ -986,6 +1132,7 @@
                 document.querySelector('.hero'),
                 document.querySelector('.voice-section'),
                 document.querySelector('.telegram-section'),
+                document.querySelector('.meetings-section'),
                 document.querySelector('.time-section')
             ];
             const indicators = document.querySelectorAll('.slide-indicator');
@@ -1052,8 +1199,14 @@
                         el.style.animationDelay = `${index * 0.3}s`;
                         el.style.opacity = '1';
                     });
-                } else if (slideIndex === 3) { // Time section
-                    const timeElements = slides[3].querySelectorAll('.animate-fade-in, .animate-scale-in');
+                } else if (slideIndex === 3) { // Meetings section
+                    const meetingsElements = slides[3].querySelectorAll('.animate-fade-in, .animate-scale-in');
+                    meetingsElements.forEach((el, index) => {
+                        el.style.animationDelay = `${index * 0.3}s`;
+                        el.style.opacity = '1';
+                    });
+                } else if (slideIndex === 4) { // Time section
+                    const timeElements = slides[4].querySelectorAll('.animate-fade-in, .animate-scale-in');
                     timeElements.forEach((el, index) => {
                         el.style.animationDelay = `${index * 0.3}s`;
                         el.style.opacity = '1';
@@ -1195,7 +1348,7 @@
             }
 
             // Add hover effects to all logo containers
-            const logoContainers = document.querySelectorAll('.logo-container, .telegram-logo-container, .time-logo-container');
+            const logoContainers = document.querySelectorAll('.logo-container, .telegram-logo-container, .meetings-logo-container, .time-logo-container');
             logoContainers.forEach(container => {
                 if (container) {
                     container.addEventListener('mouseenter', function () {
