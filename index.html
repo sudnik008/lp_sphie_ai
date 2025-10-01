@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Знакомься — это Софи AI</title>
+    <title>Знакомьтесь — это Софи AI</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -21,7 +21,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-            line-height: 1.6;
+            line-height: 1.75;
             color: #1f2937;
             margin: 0;
             padding: 0;
@@ -48,13 +48,72 @@
             padding: 0 1.5rem;
         }
 
-        .hero {
-            height: 100vh;
-            background: #FFFFFF;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            padding: 2rem 0;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        /* Common Section Styles */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #FFFFFF;
             position: relative;
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 60px;
         }
 
         .hero-content {
@@ -64,7 +123,6 @@
             align-items: center;
         }
 
-        /* Text Content */
         .hero-text {
             text-align: center;
             color: #1f2937;
@@ -84,12 +142,67 @@
             line-height: 1.5;
             color: #4a5568;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
             font-weight: 400;
             letter-spacing: -0.011em;
         }
 
-        /* Image Container */
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            border: 1px solid transparent;
+            height: 44px;
+            line-height: 1;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .hero-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: white;
+            color: #6366f1;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            height: 44px;
+            line-height: 1;
+        }
+
+        .hero-cta-secondary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: #f8fafc;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+
         .hero-image {
             display: flex;
             justify-content: center;
@@ -106,7 +219,6 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        /* Ваша фотография */
         .sofia-img {
             width: 100%;
             height: 100%;
@@ -115,185 +227,106 @@
             border-radius: 25px;
         }
 
-
-        /* Animations */
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* Slide-up animation for images */
-        .slide-up {
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slide-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-
-        /* Mobile: Stack layout (title -> description -> image) */
-        @media (max-width: 1023px) {
-
-            .hero-content,
-            .voice-content,
-            .telegram-content,
-            .meetings-content,
-            .time-content {
-                grid-template-columns: 1fr !important;
-                gap: 2.5rem;
-                text-align: center;
-            }
-
-            .hero-text,
-            .voice-text,
-            .telegram-text,
-            .meetings-text,
-            .time-text {
-                order: 1 !important;
-                /* Text (title + description) first */
-            }
-
-            .hero-image,
-            .voice-visual,
-            .telegram-visual,
-            .meetings-visual,
-            .time-visual {
-                order: 2 !important;
-                /* Image always second */
-            }
-
-            .hero-title,
-            .voice-title,
-            .telegram-title,
-            .meetings-title,
-            .time-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-description,
-            .voice-description,
-            .telegram-description,
-            .meetings-description,
-            .time-description,
-            .voice-stats,
-            .time-stats {
-                font-size: 1.125rem;
-            }
-
-            .sofia-photo {
-                width: 300px;
-                height: 380px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .hero {
-                padding: 1rem 0;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
-
-            .hero-description {
-                font-size: 1rem;
-            }
-
-            .sofia-photo {
-                width: 250px;
-                height: 320px;
-            }
-
-        }
-
-        /* Desktop: Side by side layout (text left, image right) */
-        @media (min-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
-
-            .hero-text {
-                text-align: left;
-                order: 1;
-                /* Text on left */
-            }
-
-            .hero-image {
-                order: 2;
-                /* Image on right */
-            }
-
-            .hero-title {
-                font-size: 3.5rem;
-            }
-
-            .hero-description {
-                font-size: 1.375rem;
-                margin: 0;
-                max-width: none;
-            }
-
-
-            .sofia-photo {
-                width: 380px;
-                height: 480px;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .hero-title {
-                font-size: 4rem;
-            }
-
-            .hero-description {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Second Section Styles */
+        /* Voice Section */
         .voice-section {
-            background: #FFFFFF;
-            height: 100vh;
+            background: #f8fafc;
+        }
+
+        .voice-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .voice-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            letter-spacing: -0.022em;
+        }
+
+        .voice-stats {
+            font-size: 1.375rem;
+            line-height: 1.4;
+            color: #475569;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .voice-description {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 15px;
             display: flex;
             align-items: center;
-            position: relative;
-            overflow: hidden;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .voice-content {
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .card-description {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #64748b;
+            margin: 0;
+        }
+
+        /* Tasks Section */
+        .tasks-section {
+            background: #FFFFFF;
+        }
+
+        .section-content {
             display: grid;
             grid-template-columns: 1fr;
             gap: 3rem;
             align-items: center;
-            position: relative;
-            z-index: 2;
         }
 
-        .voice-text {
+        .section-text {
             text-align: center;
         }
 
-        .voice-title {
+        .section-title {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 2rem;
@@ -302,51 +335,93 @@
             line-height: 1.1;
         }
 
-        .voice-stats {
-            font-size: 1.375rem;
-            line-height: 1.4;
-            color: #475569;
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .voice-description {
+        .section-description {
             font-size: 1.125rem;
             line-height: 1.6;
             color: #64748b;
             max-width: 700px;
             margin: 0 auto;
-            font-weight: 400;
         }
 
-        .voice-visual {
+        .section-visual {
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
-        .logo-container {
+        .visual-container {
             width: 200px;
             height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
             border-radius: 50%;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(99, 102, 241, 0.15);
             animation: logoFloat 4s ease-in-out infinite;
         }
 
-        .logo-container svg,
-        .logo-container img {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        /* Memory Section */
+        .memory-section {
+            background: #f8fafc;
         }
 
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.022em;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            color: #6366f1;
+            padding: 0.875rem 1.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-features {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Strong text styling */
+        strong {
+            font-weight: 600;
+            color: #6366f1;
+        }
+
+        /* Animations */
         @keyframes logoFloat {
 
             0%,
@@ -363,742 +438,336 @@
             }
         }
 
-        /* Background decorative elements */
-        .voice-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Responsive for voice section */
-        @media (min-width: 1024px) {
-            .voice-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
-
-            .voice-text {
-                text-align: left;
-            }
-
-            .voice-title {
-                font-size: 3rem;
-            }
-
-            .voice-stats {
-                font-size: 1.5rem;
-            }
-
-            .voice-description {
-                font-size: 1.25rem;
-                margin: 0;
-                max-width: none;
-            }
-
-            .logo-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .logo-container svg,
-            .logo-container img {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .voice-title {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .voice-stats {
-                font-size: 1.125rem;
-            }
-
-            .voice-description {
-                font-size: 1rem;
-            }
-
-            .logo-container {
-                width: 150px;
-                height: 150px;
-            }
-
-            .logo-container svg,
-            .logo-container img {
-                width: 90px;
-                height: 90px;
-            }
-        }
-
-
-        /* Scroll Hint */
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(31, 41, 55, 0.6);
-            font-size: 0.875rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-hint-arrow {
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid rgba(31, 41, 55, 0.6);
-            border-bottom: 2px solid rgba(31, 41, 55, 0.6);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .scroll-hint {
-                bottom: 1rem;
-            }
-        }
-
-        /* Third Section - Telegram */
-        .telegram-section {
-            background: #FFFFFF;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            color: #1f2937;
-        }
-
-        .telegram-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .telegram-text {
-            text-align: center;
-        }
-
-        .telegram-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #1f2937;
-            letter-spacing: -0.022em;
-            line-height: 1.1;
-        }
-
-        .telegram-description {
-            font-size: 1.125rem;
-            line-height: 1.6;
-            color: #4a5568;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-
-        .telegram-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .telegram-logo-container {
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 50%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            animation: logoFloat 4s ease-in-out infinite;
-        }
-
-        .telegram-logo-container svg,
-        .telegram-logo-container img {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
-        }
-
-        /* Fourth Section - Meetings */
-        .meetings-section {
-            background: #FFFFFF;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            color: #1f2937;
-        }
-
-        .meetings-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .meetings-text {
-            text-align: center;
-        }
-
-        .meetings-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #1f2937;
-            letter-spacing: -0.022em;
-            line-height: 1.1;
-        }
-
-        .meetings-description {
-            font-size: 1.125rem;
-            line-height: 1.6;
-            color: #4a5568;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-
-        .meetings-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .meetings-logo-container {
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 50%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            animation: logoFloat 4s ease-in-out infinite;
-        }
-
-        .meetings-logo-container svg,
-        .meetings-logo-container img {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
-        }
-
-        /* Fifth Section - Time Saving */
-        .time-section {
-            background: #FFFFFF;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            color: #1f2937;
-        }
-
-        .time-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .time-text {
-            text-align: center;
-        }
-
-        .time-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #1e293b;
-            letter-spacing: -0.022em;
-            line-height: 1.1;
-        }
-
-        .time-stats {
-            font-size: 1.375rem;
-            line-height: 1.4;
-            color: #475569;
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .time-description {
-            font-size: 1.125rem;
-            line-height: 1.6;
-            color: #64748b;
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-
-        .time-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .time-logo-container {
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: logoFloat 4s ease-in-out infinite reverse;
-        }
-
-        .time-logo-container svg,
-        .time-logo-container img {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
-        }
-
-        /* Gradient text highlighting */
-        .highlight-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            animation: gradientShift 3s ease-in-out infinite;
-            display: inline;
-            position: relative;
-        }
-
-        .highlight-word {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            display: inline;
-            vertical-align: baseline;
-        }
-
-        @keyframes gradientShift {
+        @keyframes float {
 
             0%,
             100% {
-                background-position: 0% 50%;
+                transform: translateY(0px);
             }
 
             50% {
-                background-position: 100% 50%;
+                transform: translateY(-10px);
             }
         }
 
-        /* Add subtle glow effect on hover */
-        .highlight-gradient:hover {
-            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-            transition: text-shadow 0.3s ease;
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
         }
 
-        /* Responsive for new sections */
+        /* Responsive Design */
+        @media (max-width: 1023px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content,
+            .section-content {
+                grid-template-columns: 1fr !important;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .hero-text,
+            .section-text {
+                order: 1 !important;
+            }
+
+            .hero-image,
+            .section-visual {
+                order: 2 !important;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (min-width: 1024px) {
-            .telegram-content {
+            .hero-content {
                 grid-template-columns: 1fr 1fr;
                 gap: 4rem;
             }
 
-            .telegram-text {
+            .hero-text {
                 text-align: left;
-                order: 2;
-                /* Text on right */
-            }
-
-            .telegram-visual {
                 order: 1;
-                /* Logo on left */
             }
 
-            .telegram-title {
-                font-size: 3rem;
+            .hero-image {
+                order: 2;
             }
 
-            .telegram-description {
-                font-size: 1.25rem;
-                margin: 0;
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.375rem;
+                margin: 0 0 2rem;
                 max-width: none;
             }
 
-            .telegram-logo-container {
-                width: 250px;
-                height: 250px;
+            .hero-cta {
+                font-size: 1.25rem;
+                padding: 1.25rem 3rem;
             }
 
-            .telegram-logo-container svg,
-            .telegram-logo-container img {
-                width: 150px;
-                height: 150px;
+            .sofia-photo {
+                width: 380px;
+                height: 480px;
             }
 
-            .meetings-content {
+            .voice-title {
+                font-size: 3rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-content {
                 grid-template-columns: 1fr 1fr;
                 gap: 4rem;
             }
 
-            .meetings-text {
+            .section-text {
                 text-align: left;
-                order: 2;
-                /* Text on right */
             }
 
-            .meetings-visual {
-                order: 1;
-                /* Logo on left */
-            }
-
-            .meetings-title {
+            .section-title {
                 font-size: 3rem;
             }
 
-            .meetings-description {
-                font-size: 1.25rem;
-                margin: 0;
-                max-width: none;
+            .visual-container {
+                width: 280px;
+                height: 280px;
             }
 
-            .meetings-logo-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .meetings-logo-container svg,
-            .meetings-logo-container img {
-                width: 150px;
-                height: 150px;
-            }
-
-            .time-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
-
-            .time-text {
-                text-align: left;
-                order: 1;
-                /* Text on left */
-            }
-
-            .time-visual {
+            /* Alternating layout */
+            .tasks-section .section-text {
                 order: 2;
-                /* Logo on right */
             }
 
-            .time-title {
-                font-size: 3rem;
+            .tasks-section .section-visual {
+                order: 1;
             }
 
-            .time-stats {
-                font-size: 1.5rem;
+            .memory-section .section-text {
+                order: 1;
             }
 
-            .time-description {
-                font-size: 1.25rem;
-                margin: 0;
-                max-width: none;
-            }
-
-            .time-logo-container {
-                width: 250px;
-                height: 250px;
-            }
-
-            .time-logo-container svg,
-            .time-logo-container img {
-                width: 150px;
-                height: 150px;
+            .memory-section .section-visual {
+                order: 2;
             }
         }
 
         @media (max-width: 640px) {
 
-            .telegram-title,
-            .meetings-title,
-            .time-title {
+            .hero-title,
+            .voice-title,
+            .section-title {
                 font-size: 2rem;
-                margin-bottom: 1.5rem;
             }
 
-            .time-stats {
-                font-size: 1.125rem;
+            .sofia-photo {
+                width: 250px;
+                height: 320px;
             }
 
-            .telegram-description,
-            .meetings-description,
-            .time-description {
-                font-size: 1rem;
-            }
-
-            .telegram-logo-container,
-            .meetings-logo-container,
-            .time-logo-container {
+            .visual-container {
                 width: 150px;
                 height: 150px;
             }
 
-            .telegram-logo-container svg,
-            .telegram-logo-container img,
-            .meetings-logo-container svg,
-            .meetings-logo-container img,
-            .time-logo-container svg,
-            .time-logo-container img {
-                width: 90px;
-                height: 90px;
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <main class="hero">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span>🎙️</span>
+                <span>Софи AI</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#voice">Голос</a></li>
+                <li><a href="#tasks">Задачи</a></li>
+                <li><a href="#memory">Память</a></li>
+                <li><a href="#blog">Блог</a></li>
+                <li><a href="#cta">Начать</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <main class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
-                <!-- Text Content -->
                 <div class="hero-text">
-                    <h1 class="hero-title">Знакомься&nbsp;— это&nbsp;Софи AI</h1>
+                    <h1 class="hero-title">Знакомьтесь&nbsp;— это&nbsp;Софи AI</h1>
                     <p class="hero-description">
-                        Привет, я&nbsp;Софи. Понимаю речь, превращаю в&nbsp;текст, помогаю в&nbsp;чатах, веду задачи
-                        и&nbsp;напоминаю о&nbsp;важном.
-                        Твоя умная помощница для повышения продуктивности.
+                        Расшифровывает речь и&nbsp;организует задачи.
+                        <strong>Запоминает важное и&nbsp;сама объясняет новым людям, что к&nbsp;чему.</strong>
                     </p>
-
+                    <p class="hero-description" style="margin-top: 1rem;">
+                        Не&nbsp;надо повторять. Не&nbsp;надо ничего искать. Просто скажите&nbsp;— Софи всё организует.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="https://t.me/sofi_t_bot" class="hero-cta" target="_blank">
+                            <span>🚀</span>
+                            <span>Начать в&nbsp;Telegram</span>
+                        </a>
+                        <a href="#voice" class="hero-cta-secondary">
+                            <span>Подробнее</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Sofia Photo -->
-                <div class="hero-image slide-up">
+                <div class="hero-image">
                     <div class="sofia-photo animate-float">
                         <img src="sofia-photo.jpg" alt="Софи - AI ассистент" class="sofia-img">
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Scroll Hint -->
-        <div class="scroll-hint">
-            <span>Листай вниз</span>
-            <div class="scroll-hint-arrow"></div>
-        </div>
     </main>
 
-    <!-- Voice Section -->
-    <section class="voice-section">
+    <!-- 2. Voice Section -->
+    <section class="voice-section" id="voice">
         <div class="container">
-            <div class="voice-content">
-                <!-- Text Content -->
-                <div class="voice-text">
-                    <h2 class="voice-title">Голос — лучшая клавиатура</h2>
-                    <p class="voice-stats">
-                        Средняя скорость печати&nbsp;— 30-50 слов в&nbsp;минуту. Скорость речи&nbsp;— 150+ слов
-                        в&nbsp;минуту.
-                        Это в&nbsp;3-5 раз быстрее, естественнее и&nbsp;точнее.
-                    </p>
-                    <p class="voice-description">
-                        Когда ты говоришь, а&nbsp;не&nbsp;печатаешь, ты не&nbsp;сжимаешь мысль
-                        в&nbsp;символы&nbsp;—&nbsp;ты отдаёшь её целиком: с&nbsp;уточнениями, эмоциями
-                        и&nbsp;контекстом. Я слышу не&nbsp;только результат, но&nbsp;и&nbsp;путь к&nbsp;нему.
-                        И&nbsp;<span class="highlight-gradient">помогу точнее, ближе к&nbsp;цели.</span>
-                    </p>
-                </div>
-
-                <!-- Logo Visual -->
-                <div class="voice-visual slide-up">
-                    <div class="logo-container">
-                        <img src="sofia-logo.svg" alt="Софи AI логотип" />
-                    </div>
-                </div>
+            <div class="voice-header">
+                <h2 class="voice-title">Голос&nbsp;— лучшая клавиатура</h2>
+                <p class="voice-stats">
+                    В&nbsp;среднем человек пишет около 100 сообщений в&nbsp;день. На&nbsp;каждое&nbsp;— 2–3 минуты
+                    или&nbsp;3+ часов ежедневно.
+                </p>
+                <p class="voice-description">
+                    Голосом то&nbsp;же самое занимает в&nbsp;3–5 раз меньше времени. <strong>Экономия
+                        — 2+ часа каждый день.</strong> Их&nbsp;можно
+                    вложить в&nbsp;идеи, дела, жизнь. А&nbsp;Софи превращает голос в&nbsp;текст&nbsp;— удобно искать
+                    и&nbsp;перечитывать.
+                </p>
             </div>
-        </div>
-    </section>
 
-    <!-- Telegram Section -->
-    <section class="telegram-section">
-        <div class="container">
-            <div class="telegram-content">
-                <!-- Logo Visual -->
-                <div class="telegram-visual slide-up">
-                    <div class="telegram-logo-container">
-                        <img src="sofia-logo.svg" alt="Софи AI логотип" />
-                    </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3 class="card-title">Telegram чаты</h3>
+                    <p class="card-description">
+                        Подключите Софи к&nbsp;личным и&nbsp;групповым чатам в&nbsp;Telegram.
+                        Она превращает все аудио в&nbsp;чистый текст
+                        с&nbsp;абзацами, естественной разметкой и&nbsp;эмоджи. <strong>Его легко читать и&nbsp;удобно
+                            находить</strong>&nbsp;— в&nbsp;отличие от&nbsp;аудио.
+                    </p>
                 </div>
 
-                <!-- Text Content -->
-                <div class="telegram-text">
-                    <h2 class="telegram-title">Добавь меня в Telegram</h2>
-                    <p class="telegram-description">
-                        Говорить легко, но&nbsp;слушать войсы мучительно. Подключи меня к&nbsp;своим личным
-                        и&nbsp;групповым чатам в&nbsp;Telegram
-                        и&nbsp;<span class="highlight-gradient">превращу все аудио в&nbsp;чистый текст с&nbsp;абзацами,
-                            естественной разметкой и&nbsp;эмоджи</span>. Его легко
-                        читать и&nbsp;удобно находить. Так можно перестать печатать и&nbsp;говорить с&nbsp;друзьями,
-                        коллегами и&nbsp; близкими — а&nbsp;всё будет выглядеть красиво, опрятно и&nbsp;живо.
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <h3 class="card-title">Протоколы встреч</h3>
+                    <p class="card-description">
+                        Отправьте Софи аудио встречи&nbsp;— она превратит его в&nbsp;текст: выделит каждого спикера,
+                        напишет резюме и&nbsp;список задач.
+                        <strong>На&nbsp;выходе ясный протокол</strong>&nbsp;—
+                        кто говорил и&nbsp;что делать дальше.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Meetings Section -->
-    <section class="meetings-section">
+    <!-- 3. Tasks Section -->
+    <section class="tasks-section" id="tasks">
         <div class="container">
-            <div class="meetings-content">
-                <!-- Logo Visual -->
-                <div class="meetings-visual slide-up">
-                    <div class="meetings-logo-container">
-                        <img src="sofia-logo.svg" alt="Софи AI логотип" />
-                    </div>
+            <div class="section-content">
+                <div class="section-text">
+                    <h2 class="section-title">Из&nbsp;чата&nbsp;— сразу в&nbsp;дело</h2>
+                    <p class="section-description">
+                        Говорите, что нужно сделать&nbsp;— Софи запишет задачу, добавит срок и&nbsp;не&nbsp;забудет.
+                        У&nbsp;каждого чата свой список: работа, партнёры, личное&nbsp;— Всё по&nbsp;полочкам, ничего
+                        не&nbsp;потеряется.
+                    </p>
+                    <p class="section-description" style="margin-top: 1rem;">
+                        <strong>Можно редактировать голосом или текстом&nbsp;— обновляется само.</strong>
+                    </p>
+                    <p class="section-description" style="margin-top: 1rem;">
+                        Как и&nbsp;раньше, всё начинается с&nbsp;переписки. Только теперь не&nbsp;нужно вспоминать:
+                        «О&nbsp;чем и&nbsp;где мы&nbsp;договаривались?».
+                        Никаких лишних приложений&nbsp;— <strong>просто пишите, а&nbsp;София всё запомнит и&nbsp;вовремя
+                            напомнит в&nbsp;нужном чате.</strong>
+                    </p>
                 </div>
 
-                <!-- Text Content -->
-                <div class="meetings-text">
-                    <h2 class="meetings-title">Протоколы встреч: кто сказал и что решили</h2>
-                    <p class="meetings-description">
-                        Длинные встречи, интервью или сессии? Просто пришли мне аудио. Я превращу его в ясную
-                        расшифровку:
-                        выделю каждого спикера, соберу чистый текст, подведу резюме и отмечу экшн‑поинты. <span
-                            class="highlight-gradient">В итоге
-                            у&nbsp;тебя на&nbsp;руках не&nbsp;час записи, а&nbsp;ясный протокол</span>&nbsp;— кто
-                        говорил и&nbsp;что делать дальше.
-                    </p>
+                <div class="section-visual">
+                    <div class="visual-container"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Time Section -->
-    <section class="time-section">
+    <!-- 5. Memory Section -->
+    <section class="memory-section" id="memory">
         <div class="container">
-            <div class="time-content">
-                <!-- Text Content -->
-                <div class="time-text">
-                    <h2 class="time-title">Время возвращается тебе</h2>
-                    <p class="time-stats">
-                        В&nbsp;среднем человек пишет около 100 сообщений в&nbsp;день. На&nbsp;каждое&nbsp;— 2–3 минуты
-                        или&nbsp;3+ часов ежедневно.
-                    </p>
-                    <p class="time-description">
-                        Голосом то&nbsp;же самое занимает в&nbsp;3–5 раз меньше времени. <span
-                            class="highlight-gradient">Экономия
-                            — 2+ часа каждый день.</span> Их можно
-                        вложить в&nbsp;идеи, дела, жизнь.
+            <div class="section-content">
+                <div class="section-text">
+                    <h2 class="section-title">Запомнит&nbsp;— и&nbsp;расскажет за&nbsp;вас</h2>
+                    <p class="section-description">
+                        Скажите просто: «Софи, запомни»&nbsp;— и&nbsp;она сохранит то, что важно.
+                        Больше не&nbsp;придётся повторять одно и&nbsp;то&nbsp;же клиентам, коллегам или друзьям.
+                        <strong>Софи сама всё расскажет, когда нужно&nbsp;— в&nbsp;любом чате, по&nbsp;вашей
+                            команде.</strong>
                     </p>
                 </div>
 
-                <!-- Logo Visual -->
-                <div class="time-visual slide-up">
-                    <div class="time-logo-container">
-                        <img src="sofia-logo.svg" alt="Софи AI логотип" />
-                    </div>
+                <div class="section-visual">
+                    <div class="visual-container"></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 6. CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2 class="cta-title">Начните прямо сейчас</h2>
+            <p class="cta-subtitle">Подключите Софи к&nbsp;своим чатам и&nbsp;начните экономить время уже сегодня</p>
+            <a href="https://t.me/sofi_t_bot" class="cta-button" target="_blank">
+                <span>📱</span>
+                <span>Открыть бота в&nbsp;Telegram</span>
+            </a>
+            <p class="cta-features">Бесплатно • Настройка за&nbsp;2&nbsp;минуты • Работает в&nbsp;личных
+                и&nbsp;групповых чатах</p>
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Hide scroll hint after any interaction
-            const scrollHint = document.querySelector('.scroll-hint');
-            let hasInteracted = false;
-
-            function hideScrollHint() {
-                if (!hasInteracted && scrollHint) {
-                    hasInteracted = true;
-                    scrollHint.style.opacity = '0';
-                    setTimeout(() => {
-                        scrollHint.style.display = 'none';
-                    }, 300);
-                }
-            }
-
-            // Hide scroll hint on any scroll or interaction
-            window.addEventListener('scroll', hideScrollHint, { once: true });
-            window.addEventListener('wheel', hideScrollHint, { once: true });
-            window.addEventListener('touchstart', hideScrollHint, { once: true });
-
-            // Intersection Observer for slide-up animations
-            const slideUpObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+            // Hover effects for cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
                 });
-            }, {
-                threshold: 0.2, // Trigger when 20% of element is visible
-                rootMargin: '0px 0px -50px 0px' // Start animation slightly before element comes into view
+
+                card.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
             });
 
-            // Observe all elements with slide-up class
-            const slideUpElements = document.querySelectorAll('.slide-up');
-            slideUpElements.forEach(element => {
-                slideUpObserver.observe(element);
-            });
-
-            // Hover effects for photos and logos
+            // Hover effects for photo
             const photo = document.querySelector('.sofia-photo');
             if (photo) {
                 photo.addEventListener('mouseenter', function () {
@@ -1110,21 +779,6 @@
                     this.style.transform = 'scale(1) translateY(0)';
                 });
             }
-
-            // Add hover effects to all logo containers
-            const logoContainers = document.querySelectorAll('.logo-container, .telegram-logo-container, .meetings-logo-container, .time-logo-container');
-            logoContainers.forEach(container => {
-                if (container) {
-                    container.addEventListener('mouseenter', function () {
-                        this.style.transform = 'scale(1.1) translateY(-5px)';
-                        this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                    });
-
-                    container.addEventListener('mouseleave', function () {
-                        this.style.transform = 'scale(1) translateY(0)';
-                    });
-                }
-            });
         });
     </script>
 </body>
