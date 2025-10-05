@@ -201,7 +201,7 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 0;
+            padding: 2rem 0;
         }
 
         .hero-content {
@@ -702,10 +702,6 @@
                 display: none;
             }
 
-            .hero {
-                padding-top: 0;
-            }
-
             .hero-content,
             .section-content {
                 grid-template-columns: 1fr !important;
@@ -820,10 +816,6 @@
         }
 
         @media (max-width: 640px) {
-
-            .hero {
-                padding-top: 0;
-            }
 
             .hero-title,
             .voice-title,
@@ -1175,7 +1167,7 @@
                     touchCurrentX = touchStartX;
                     isDragging = true;
                     startOffset = -currentSlide * 100;
-                    
+
                     // Disable transition for smooth dragging
                     sliderTrack.style.transition = 'none';
                     clearInterval(autoPlay);
@@ -1183,15 +1175,15 @@
 
                 sliderTrack.addEventListener('touchmove', (e) => {
                     if (!isDragging) return;
-                    
+
                     touchCurrentX = e.touches[0].clientX;
                     const diff = touchCurrentX - touchStartX;
                     const sliderWidth = sliderTrack.offsetWidth;
                     const movePercent = (diff / sliderWidth) * 100;
-                    
+
                     // Calculate new position with boundaries
                     let newOffset = startOffset + movePercent;
-                    
+
                     // Add resistance at boundaries
                     if (newOffset > 0) {
                         newOffset = newOffset * 0.3; // Resistance on left boundary
@@ -1199,19 +1191,19 @@
                         const excess = newOffset + (totalSlides - 1) * 100;
                         newOffset = -(totalSlides - 1) * 100 + excess * 0.3; // Resistance on right boundary
                     }
-                    
+
                     sliderTrack.style.transform = `translateX(${newOffset}%)`;
                 });
 
                 sliderTrack.addEventListener('touchend', (e) => {
                     if (!isDragging) return;
-                    
+
                     const diff = touchCurrentX - touchStartX;
                     const threshold = 50; // minimum swipe distance
-                    
+
                     // Re-enable transition
                     sliderTrack.style.transition = 'transform 0.5s ease-in-out';
-                    
+
                     // Determine direction and change slide
                     if (Math.abs(diff) > threshold) {
                         if (diff > 0 && currentSlide > 0) {
@@ -1222,10 +1214,10 @@
                             currentSlide++;
                         }
                     }
-                    
+
                     // Go to the determined slide
                     goToSlide(currentSlide);
-                    
+
                     isDragging = false;
                     autoPlay = setInterval(nextSlide, autoPlayInterval);
                 });
