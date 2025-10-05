@@ -62,8 +62,8 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
             transform: translateY(-100%);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav.visible {
@@ -1045,13 +1045,13 @@
 
             function handleNavigation() {
                 const currentScrollY = window.scrollY;
-                
+
                 if (currentScrollY > scrollThreshold) {
                     nav.classList.add('visible');
                 } else {
                     nav.classList.remove('visible');
                 }
-                
+
                 lastScrollY = currentScrollY;
             }
 
@@ -1060,9 +1060,9 @@
 
             // Отслеживание скролла с throttling для производительности
             let ticking = false;
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function () {
                 if (!ticking) {
-                    window.requestAnimationFrame(function() {
+                    window.requestAnimationFrame(function () {
                         handleNavigation();
                         ticking = false;
                     });
@@ -1164,32 +1164,76 @@
                     });
                 });
 
-                // Touch swipe support
+                // Enhanced touch swipe with follow-finger effect
                 let touchStartX = 0;
-                let touchEndX = 0;
+                let touchCurrentX = 0;
+                let isDragging = false;
+                let startOffset = 0;
 
                 sliderTrack.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartX = e.touches[0].clientX;
+                    touchCurrentX = touchStartX;
+                    isDragging = true;
+                    startOffset = -currentSlide * 100;
+                    
+                    // Disable transition for smooth dragging
+                    sliderTrack.style.transition = 'none';
+                    clearInterval(autoPlay);
+                });
+
+                sliderTrack.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    
+                    touchCurrentX = e.touches[0].clientX;
+                    const diff = touchCurrentX - touchStartX;
+                    const sliderWidth = sliderTrack.offsetWidth;
+                    const movePercent = (diff / sliderWidth) * 100;
+                    
+                    // Calculate new position with boundaries
+                    let newOffset = startOffset + movePercent;
+                    
+                    // Add resistance at boundaries
+                    if (newOffset > 0) {
+                        newOffset = newOffset * 0.3; // Resistance on left boundary
+                    } else if (newOffset < -(totalSlides - 1) * 100) {
+                        const excess = newOffset + (totalSlides - 1) * 100;
+                        newOffset = -(totalSlides - 1) * 100 + excess * 0.3; // Resistance on right boundary
+                    }
+                    
+                    sliderTrack.style.transform = `translateX(${newOffset}%)`;
                 });
 
                 sliderTrack.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
+                    if (!isDragging) return;
+                    
+                    const diff = touchCurrentX - touchStartX;
+                    const threshold = 50; // minimum swipe distance
+                    
+                    // Re-enable transition
+                    sliderTrack.style.transition = 'transform 0.5s ease-in-out';
+                    
+                    // Determine direction and change slide
+                    if (Math.abs(diff) > threshold) {
+                        if (diff > 0 && currentSlide > 0) {
+                            // Swipe right - previous slide
+                            currentSlide--;
+                        } else if (diff < 0 && currentSlide < totalSlides - 1) {
+                            // Swipe left - next slide
+                            currentSlide++;
+                        }
+                    }
+                    
+                    // Go to the determined slide
+                    goToSlide(currentSlide);
+                    
+                    isDragging = false;
+                    autoPlay = setInterval(nextSlide, autoPlayInterval);
                 });
 
-                function handleSwipe() {
-                    if (touchEndX < touchStartX - 50) {
-                        clearInterval(autoPlay);
-                        nextSlide();
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
-                    }
-                    if (touchEndX > touchStartX + 50) {
-                        clearInterval(autoPlay);
-                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                        goToSlide(currentSlide);
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
-                    }
-                }
+                // Prevent default touch behavior on slider
+                sliderTrack.addEventListener('touchstart', (e) => {
+                    e.stopPropagation();
+                }, { passive: true });
 
                 // Arrow button handlers
                 if (arrowLeft) {
