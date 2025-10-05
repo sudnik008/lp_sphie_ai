@@ -1169,70 +1169,66 @@
                 let isDragging = false;
                 let startOffset = 0;
 
-                sliderTrack.addEventListener('touchstart', (e) => {
+                function handleTouchStart(e) {
                     touchStartX = e.touches[0].clientX;
                     touchCurrentX = touchStartX;
                     isDragging = true;
                     startOffset = -currentSlide * 100;
-
+                    
                     // Disable transition for smooth dragging
                     sliderTrack.style.transition = 'none';
                     clearInterval(autoPlay);
-                });
+                }
 
-                sliderTrack.addEventListener('touchmove', (e) => {
+                function handleTouchMove(e) {
                     if (!isDragging) return;
-
+                    
+                    // Prevent default scrolling while swiping
+                    e.preventDefault();
+                    
                     touchCurrentX = e.touches[0].clientX;
                     const diff = touchCurrentX - touchStartX;
                     const sliderWidth = sliderTrack.offsetWidth;
                     const movePercent = (diff / sliderWidth) * 100;
-
-                    // Calculate new position with boundaries
+                    
+                    // Calculate new position
                     let newOffset = startOffset + movePercent;
-
-                    // Add resistance at boundaries
-                    if (newOffset > 0) {
-                        newOffset = newOffset * 0.3; // Resistance on left boundary
-                    } else if (newOffset < -(totalSlides - 1) * 100) {
-                        const excess = newOffset + (totalSlides - 1) * 100;
-                        newOffset = -(totalSlides - 1) * 100 + excess * 0.3; // Resistance on right boundary
-                    }
-
+                    
+                    // Apply position immediately (no boundaries during drag for smoother feel)
                     sliderTrack.style.transform = `translateX(${newOffset}%)`;
-                });
+                }
 
-                sliderTrack.addEventListener('touchend', (e) => {
+                function handleTouchEnd(e) {
                     if (!isDragging) return;
-
+                    
                     const diff = touchCurrentX - touchStartX;
-                    const threshold = 50; // minimum swipe distance
-
+                    const threshold = 30; // reduced threshold for easier swipes
+                    
                     // Re-enable transition
                     sliderTrack.style.transition = 'transform 0.5s ease-in-out';
-
-                    // Determine direction and change slide
-                    if (Math.abs(diff) > threshold) {
-                        if (diff > 0 && currentSlide > 0) {
-                            // Swipe right - previous slide
-                            currentSlide--;
-                        } else if (diff < 0 && currentSlide < totalSlides - 1) {
-                            // Swipe left - next slide
-                            currentSlide++;
-                        }
+                    
+                    // Determine direction and change slide based on swipe distance
+                    if (diff > threshold && currentSlide > 0) {
+                        // Swipe right - previous slide
+                        currentSlide--;
+                    } else if (diff < -threshold && currentSlide < totalSlides - 1) {
+                        // Swipe left - next slide
+                        currentSlide++;
                     }
-
+                    // If swipe is too small, stay on current slide
+                    
                     // Go to the determined slide
                     goToSlide(currentSlide);
-
+                    
                     isDragging = false;
                     autoPlay = setInterval(nextSlide, autoPlayInterval);
-                });
+                }
 
-                // Prevent default touch behavior on slider
-                sliderTrack.addEventListener('touchstart', (e) => {
-                    e.stopPropagation();
-                }, { passive: true });
+                // Add touch event listeners
+                sliderTrack.addEventListener('touchstart', handleTouchStart, { passive: true });
+                sliderTrack.addEventListener('touchmove', handleTouchMove, { passive: false });
+                sliderTrack.addEventListener('touchend', handleTouchEnd, { passive: true });
+                sliderTrack.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
                 // Arrow button handlers
                 if (arrowLeft) {
