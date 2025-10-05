@@ -1167,16 +1167,22 @@
                     });
                 });
 
-                // Enhanced touch swipe with follow-finger effect
+                // Enhanced touch swipe with follow-finger effect and direction detection
                 let touchStartX = 0;
+                let touchStartY = 0;
                 let touchCurrentX = 0;
+                let touchCurrentY = 0;
                 let isDragging = false;
+                let isHorizontalSwipe = null;
                 let startOffset = 0;
 
                 function handleTouchStart(e) {
                     touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
                     touchCurrentX = touchStartX;
+                    touchCurrentY = touchStartY;
                     isDragging = true;
+                    isHorizontalSwipe = null; // Reset swipe direction
                     startOffset = -currentSlide * 100;
                     
                     // Disable transition for smooth dragging
@@ -1187,44 +1193,65 @@
                 function handleTouchMove(e) {
                     if (!isDragging) return;
                     
-                    // Prevent default scrolling while swiping
-                    e.preventDefault();
-                    
                     touchCurrentX = e.touches[0].clientX;
-                    const diff = touchCurrentX - touchStartX;
-                    const sliderWidth = sliderTrack.offsetWidth;
-                    const movePercent = (diff / sliderWidth) * 100;
+                    touchCurrentY = e.touches[0].clientY;
                     
-                    // Calculate new position
-                    let newOffset = startOffset + movePercent;
+                    const diffX = Math.abs(touchCurrentX - touchStartX);
+                    const diffY = Math.abs(touchCurrentY - touchStartY);
                     
-                    // Apply position immediately (no boundaries during drag for smoother feel)
-                    sliderTrack.style.transform = `translateX(${newOffset}%)`;
+                    // Determine swipe direction on first move
+                    if (isHorizontalSwipe === null && (diffX > 5 || diffY > 5)) {
+                        isHorizontalSwipe = diffX > diffY;
+                    }
+                    
+                    // Only handle horizontal swipes
+                    if (isHorizontalSwipe === true) {
+                        // Prevent default scrolling only for horizontal swipes
+                        e.preventDefault();
+                        
+                        const diff = touchCurrentX - touchStartX;
+                        const sliderWidth = sliderTrack.offsetWidth;
+                        const movePercent = (diff / sliderWidth) * 100;
+                        
+                        // Calculate new position
+                        let newOffset = startOffset + movePercent;
+                        
+                        // Apply position immediately
+                        sliderTrack.style.transform = `translateX(${newOffset}%)`;
+                    } else if (isHorizontalSwipe === false) {
+                        // Vertical swipe detected, allow page scroll
+                        isDragging = false;
+                        sliderTrack.style.transition = 'transform 0.5s ease-in-out';
+                        goToSlide(currentSlide);
+                    }
                 }
 
                 function handleTouchEnd(e) {
                     if (!isDragging) return;
                     
-                    const diff = touchCurrentX - touchStartX;
-                    const threshold = 30; // reduced threshold for easier swipes
+                    const diffX = touchCurrentX - touchStartX;
+                    const threshold = 50; // Swipe threshold in pixels
                     
                     // Re-enable transition
                     sliderTrack.style.transition = 'transform 0.5s ease-in-out';
                     
-                    // Determine direction and change slide based on swipe distance
-                    if (diff > threshold && currentSlide > 0) {
-                        // Swipe right - previous slide
-                        currentSlide--;
-                    } else if (diff < -threshold && currentSlide < totalSlides - 1) {
-                        // Swipe left - next slide
-                        currentSlide++;
+                    // Only process if it was a horizontal swipe
+                    if (isHorizontalSwipe === true) {
+                        // Determine direction and change slide based on swipe distance
+                        if (diffX > threshold && currentSlide > 0) {
+                            // Swipe right - previous slide
+                            currentSlide--;
+                        } else if (diffX < -threshold && currentSlide < totalSlides - 1) {
+                            // Swipe left - next slide
+                            currentSlide++;
+                        }
                     }
-                    // If swipe is too small, stay on current slide
                     
-                    // Go to the determined slide
+                    // Go to the determined slide (or back to current if swipe was too small)
                     goToSlide(currentSlide);
                     
                     isDragging = false;
+                    isHorizontalSwipe = null;
                     autoPlay = setInterval(nextSlide, autoPlayInterval);
                 }
 
