@@ -418,6 +418,9 @@
             overflow: hidden;
             border-radius: 30px;
             background: #FFFFFF;
+            touch-action: pan-y pinch-zoom;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .voice-slider-arrow {
@@ -1133,11 +1136,14 @@
             const dots = document.querySelectorAll('.voice-slider-dot');
             const arrowLeft = document.querySelector('.voice-slider-arrow-left');
             const arrowRight = document.querySelector('.voice-slider-arrow-right');
+            const voiceSection = document.querySelector('.voice-section');
 
             if (sliderTrack && slides.length > 0) {
                 let currentSlide = 0;
                 const totalSlides = slides.length;
                 const autoPlayInterval = 5000; // 5 seconds
+                let autoPlay = null;
+                let isVisible = false;
 
                 function goToSlide(index) {
                     currentSlide = index;
@@ -1155,15 +1161,43 @@
                     goToSlide(currentSlide);
                 }
 
-                // Auto-play slider
-                let autoPlay = setInterval(nextSlide, autoPlayInterval);
+                function startAutoPlay() {
+                    if (!autoPlay && isVisible) {
+                        autoPlay = setInterval(nextSlide, autoPlayInterval);
+                    }
+                }
+
+                function stopAutoPlay() {
+                    if (autoPlay) {
+                        clearInterval(autoPlay);
+                        autoPlay = null;
+                    }
+                }
+
+                // Intersection Observer для отслеживания видимости секции
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        isVisible = entry.isIntersecting;
+                        if (entry.isIntersecting) {
+                            startAutoPlay();
+                        } else {
+                            stopAutoPlay();
+                        }
+                    });
+                }, {
+                    threshold: 0.3 // Секция видна хотя бы на 30%
+                });
+
+                if (voiceSection) {
+                    observer.observe(voiceSection);
+                }
 
                 // Dot click handlers
                 dots.forEach((dot, index) => {
                     dot.addEventListener('click', () => {
-                        clearInterval(autoPlay);
+                        stopAutoPlay();
                         goToSlide(index);
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
+                        startAutoPlay();
                     });
                 });
 
@@ -1176,6 +1210,7 @@
                 let startPos = 0;
                 let currentPos = 0;
                 let isDragging = false;
+                let swipeDirection = null; // 'horizontal' or 'vertical' or null
 
                 function getTouches(evt) {
                     return evt.touches || evt.originalEvent.touches;
@@ -1188,9 +1223,10 @@
                     timeDown = Date.now();
                     startPos = -currentSlide * 100;
                     isDragging = false;
-                    
+                    swipeDirection = null;
+
                     // Stop auto-play
-                    clearInterval(autoPlay);
+                    stopAutoPlay();
                 }
 
                 function handleTouchMove(evt) {
@@ -1204,17 +1240,24 @@
                     xDiff = xDown - xUp;
                     yDiff = yDown - yUp;
 
-                    // Determine if swipe is horizontal or vertical
-                    if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > 5) {
-                        // Horizontal swipe detected
+                    // Determine swipe direction only once at the beginning
+                    if (swipeDirection === null) {
+                        if (Math.abs(xDiff) > 10 || Math.abs(yDiff) > 10) {
+                            swipeDirection = Math.abs(xDiff) > Math.abs(yDiff) ? 'horizontal' : 'vertical';
+                        }
+                    }
+
+                    // Only handle horizontal swipes
+                    if (swipeDirection === 'horizontal') {
+                        // Prevent default scrolling
                         evt.preventDefault();
                         isDragging = true;
-                        
+
                         // Calculate position
                         const sliderWidth = sliderTrack.offsetWidth || sliderTrack.parentElement.offsetWidth;
                         const movePercent = -(xDiff / sliderWidth) * 100;
                         currentPos = startPos + movePercent;
-                        
+
                         // Apply transform without transition
                         sliderTrack.style.transition = 'none';
                         sliderTrack.style.transform = `translateX(${currentPos}%)`;
@@ -1222,23 +1265,25 @@
                 }
 
                 function handleTouchEnd(evt) {
-                    if (!isDragging) {
-                        // Re-enable autoplay if no drag happened
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
+                    if (!isDragging || swipeDirection !== 'horizontal') {
+                        // Re-enable autoplay if no horizontal drag happened
+                        startAutoPlay();
                         xDown = null;
                         yDown = null;
+                        swipeDirection = null;
                         return;
                     }
 
                     const timeDiff = Date.now() - timeDown;
                     const isQuick = timeDiff < 300;
-                    const isLargeSwipe = Math.abs(xDiff) > 40;
-                    
+                    const swipeDistance = Math.abs(xDiff);
+                    const threshold = 30; // Reduced threshold for better sensitivity
+
                     // Re-enable transition
                     sliderTrack.style.transition = 'transform 0.5s ease-in-out';
 
-                    // Determine slide change
-                    if (isLargeSwipe || isQuick) {
+                    // Determine slide change based on distance or speed
+                    if (swipeDistance > threshold || (isQuick && swipeDistance > 15)) {
                         if (xDiff > 0) {
                             // Swiped left - next slide
                             if (currentSlide < totalSlides - 1) {
@@ -1261,9 +1306,10 @@
                     xDiff = null;
                     yDiff = null;
                     isDragging = false;
-                    
+                    swipeDirection = null;
+
                     // Restart autoplay
-                    autoPlay = setInterval(nextSlide, autoPlayInterval);
+                    startAutoPlay();
                 }
 
                 // Attach event listeners
@@ -1274,18 +1320,18 @@
                 // Arrow button handlers
                 if (arrowLeft) {
                     arrowLeft.addEventListener('click', () => {
-                        clearInterval(autoPlay);
+                        stopAutoPlay();
                         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                         goToSlide(currentSlide);
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
+                        startAutoPlay();
                     });
                 }
 
                 if (arrowRight) {
                     arrowRight.addEventListener('click', () => {
-                        clearInterval(autoPlay);
+                        stopAutoPlay();
                         nextSlide();
-                        autoPlay = setInterval(nextSlide, autoPlayInterval);
+                        startAutoPlay();
                     });
                 }
             }
